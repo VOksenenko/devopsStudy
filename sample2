@@ -1,14 +1,18 @@
 #!/bin/bash
 MIN=$(( $1 - 1 ))
 
-while [ $MIN -ge 0 ]; do
-    SEC=59
-    while [ $SEC -ge 0 ]; do
-        printf "There are $MIN:%02d\033[0K seconds remaining.\r" $SEC
-        SEC=$((SEC-1))
-        sleep 1
-    done
-    MIN=$((MIN-1))
-done
-printf "The time is over!\033[0K\r" 
-sleep 1
+if [ $# -ne 1 ]; then 
+    echo "Only one argument required to run the script."
+    else
+        while [ $MIN -ge 0 ]; do
+            SEC=59
+            while [ $SEC -ge 0 ]; do
+                printf "There are $MIN:%02d\033[0K seconds remaining.\r" $SEC
+                SEC=$((SEC-1))
+                sleep 1
+            done
+            MIN=$((MIN-1))
+        done
+    printf "The time is over!\033[0K\r" 
+    sleep 1
+fi
