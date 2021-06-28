@@ -1,6 +1,9 @@
 #!/bin/bash
-for pc in $(seq 1 100); do
-    echo -ne "There are $pc%\033[0K seconds remaining.\r"
+MIN=$(($1 + 0 ))
+SEC=$(( ${MIN} * 60 ))
+
+while [ $SEC -ge 0 ]; do
+    printf "There are %02d\033[0K seconds remaining.\r" $SEC
+    SEC=$((SEC-1))
     sleep 1
 done
-echo
