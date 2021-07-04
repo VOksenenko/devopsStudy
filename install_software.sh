@@ -1,6 +1,13 @@
 #!/bin/bash
-# Get a sowtware file as parameter
-input=$1
+#Array with software list
+input=()
+
+# Check stdin if we can get a soft from pipeline.
+# If something exist get line-by-line and add to input array
+if [ -p /dev/stdin ]; then
+    while IFS= read line; do
+        input+=("${line}")
+    done
 
 # Get OS distribution  from /etc/os-release. 
 # Filtered by ID, get  second tab after  equal sign using awk. Get rid of quotes using tr.
