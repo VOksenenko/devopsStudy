@@ -2,7 +2,8 @@
 # Get a sowtware file as parameter
 input=$1
 
-# Get OS distribution  from /etc/os-release. Filtered by ID, get  second tab after  equal sign using awk. Get rid of quotes using tr.
+# Get OS distribution  from /etc/os-release. 
+# Filtered by ID, get  second tab after  equal sign using awk. Get rid of quotes using tr.
 OS=$( cat /etc/os-release|grep -iE '^ID='| awk -F '=' '{print $2}'| tr -d '"' )
 
 #Read line-by-line from input file till the end of file.
