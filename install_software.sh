@@ -22,26 +22,26 @@ else
     done < "$inputfile"
 fi
 
-# Get OS distribution  from /etc/os-release. 
+# Get OS distribution  from /etc/os-release.
 # Filtered by ID, get  second tab after  equal sign using awk. Get rid of quotes using tr.
 OS=$( cat /etc/os-release|grep -iE '^ID='| awk -F '=' '{print $2}'| tr -d '"' )
 
-#Read line-by-line from input file till the end of file.
-while IFS= read -r line
+# For each software in input array install soft
+for soft in "${input[@]}"
 do
-        # Use different actions depend on OS distribution using case operator and possible cases.
-        # If neither ubuntu nor centos found, shows information message.
+    # Use different commands depend on OS distribution using case operator and possible cases.
+    # If neither ubuntu nor centos found, shows information message.
         case $OS in
         ubuntu)
-            yes| sudo apt remove $line
+            sudo apt -y install $soft
             ;;
 
         centos)
-            sudo yum -y install $line
+            sudo yum -y install $soft
             ;;
 
        *)  # This message will be shown if OS release do not match ubuntu or centos
            echo  "Sorry. Cannot define OS distribution. Cannot install soft on this host."
            ;;
     esac
-done < "$input"
+done
